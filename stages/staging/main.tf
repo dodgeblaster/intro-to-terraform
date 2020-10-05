@@ -7,11 +7,9 @@ provider "aws" {
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 terraform {
   backend "s3" {
-    # Replace this with your bucket name!
-    bucket = "garysjennings-terraform-state"
-    key    = "global/s3/terraform.tfstate"
-    region = "us-east-2"
-    # Replace this with your DynamoDB table name!
+    bucket         = "garysjennings-terraform-state"
+    key            = "global/s3/terraform.tfstate"
+    region         = "us-east-2"
     dynamodb_table = "terraform-up-and-running-locks"
     encrypt        = true
   }
@@ -19,12 +17,11 @@ terraform {
 
 resource "aws_s3_bucket" "garysjennings-terraform_state" {
   bucket = "garysjennings-terraform-state"
-  # Enable versioning so we can see the full revision history of our
-  # state files
+
   versioning {
     enabled = true
   }
-  # Enable server-side encryption by default
+
   server_side_encryption_configuration {
     rule {
       apply_server_side_encryption_by_default {
